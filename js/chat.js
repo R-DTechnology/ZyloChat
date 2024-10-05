@@ -94,7 +94,8 @@ document.getElementById('search-bar').addEventListener('keyup', async (event) =>
   });
 });
 
-document.getElementById('send-btn').addEventListener('click', async () => {
+// Function to send a message
+const sendMessage = async () => {
   const messageInput = document.getElementById('message-input');
   const messageText = messageInput.value.trim();
 
@@ -109,9 +110,20 @@ document.getElementById('send-btn').addEventListener('click', async () => {
     const messagesCollection = collection(db, `conversations/${selectedConversationId}/messages`);
     await addDoc(messagesCollection, newMessage);
 
-    messageInput.value = ''; 
+    messageInput.value = ''; // Clear the input field
   } else {
     alert("Please select a user to chat with or enter a message!");
+  }
+};
+
+// Event listener for send button
+document.getElementById('send-btn').addEventListener('click', sendMessage);
+
+// New keydown event listener for message input
+document.getElementById('message-input').addEventListener('keydown', async (event) => {
+  if (event.key === 'Enter') { // Check if the pressed key is 'Enter'
+    event.preventDefault(); // Prevent the default action (like form submission)
+    await sendMessage(); // Call the send message function
   }
 });
 
@@ -238,7 +250,13 @@ const addRecentChat = async (userId, userNickname) => {
   await setDoc(recentChatRef, { userId: userId, nickname: userNickname });
 };
 
-const addRecentChatToOtherUser = async (currentUserId, currentNickname, otherUserId) => {
+const addRecentChatToOtherUser = async (currentUserId, currentUserNickname, otherUserId) => {
   const recentChatRef = doc(db, `users/${otherUserId}/recentChats`, currentUserId);
-  await setDoc(recentChatRef, { userId: currentUserId, nickname: currentNickname });
+  await setDoc(recentChatRef, { userId: currentUserId, nickname: currentUserNickname });
 };
+
+// Logout function (optional)
+document.getElementById('logout-btn').addEventListener('click', async () => {
+  await auth.signOut();
+  console.log("User logged out.");
+});
