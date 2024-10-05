@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/ad31800fcc.js" crossorigin="anonymous"></script>
+    <title>ZyloChat</title>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-sidebar">
+            <input type="text" id="search-bar" placeholder="Search">
+            <div id="search-results" class="search-results-dropdown"></div>
+            <ul id="recent-chats-list">
+                <!-- List of recent chats will be dynamically populated here -->
+            </ul>
+        </div>
+
+        <div class="chat-content">
+            <div class="chat-header">
+                <h2 id="chat-title">Chat...</h2>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <!-- Chat messages will be dynamically populated here -->
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="message-input" placeholder="Type a message...">
+                <button id="send-btn"></button>
+                <button id="attach-btn"></button>
+                <input type="file" id="file-input" accept="*/*">
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/chat.js"></script>
+</body>
+</html>
